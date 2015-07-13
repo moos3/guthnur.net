@@ -8,7 +8,7 @@ build:
 
 deploy:
   steps:
-    - moos3/gh-pages@0.2.1:
+    - guthnur.net/gh-pages@0.2.1:
         token: $GIT_TOKEN
         domain: guthur.net
         basedir: public
