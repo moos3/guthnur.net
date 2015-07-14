@@ -1,0 +1,16 @@
+[Unit]
+Description=hugo blog engine
+After=docker.service blogcontent.service
+Requires=docker.service
+
+[Service]
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker kill hugo
+ExecStartPre=-/usr/bin/docker rm hugo
+ExecStartPre=cd /app/gutnurnet && /usr/bin/git pull origin master
+ExecStartPre=/usr/bin/docker build -t blog/hugo /app/guthnurnet/docker/hugo
+ExecStart=/usr/bin/docker run --name hugo --volumes-from blog_content blog/hugo:latest
+ExecStop=/usr/bin/docker stop hugo
+
+[Install]
+WantedBy=multi-user.target
